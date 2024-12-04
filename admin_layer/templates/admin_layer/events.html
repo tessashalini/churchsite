@@ -1,0 +1,86 @@
+{% extends "admin_layer/base_admin.html" %}
+
+{% block content %}
+<h1>Manage Events</h1>
+
+<!-- Event Requests for Approval Section -->
+<section>
+    <h2>Pending Event Requests</h2>
+    <ul>
+        {% for event in event_requests %}
+            <li>
+                <strong>{{ event.title }}</strong> (Requested by {{ event.member.username }}) - {{ event.event_date }}
+                <p>{{ event.description }}</p>
+                <form method="post" action="{% url 'admin_event_action' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="event_id" value="{{ event.id }}">
+                    <button type="submit" name="action" value="approve">✅ Approve</button>
+                    <button type="submit" name="action" value="reject">❌ Reject</button>
+                </form>
+            </li>
+        {% empty %}
+            <p>No pending requests.</p>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Calendar Section (Display all approved events) -->
+<section>
+    <h2>Upcoming Approved Events</h2>
+    <div id="calendar" class="calendar-container"></div>
+</section>
+
+<!-- Include JS and CSS for FullCalendar -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+
+<!-- Custom Styling -->
+<style>
+    .calendar-container {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #f0f8ff;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .fc-toolbar {
+        background-color: #2c3e50;
+        color: #ecf0f1;
+    }
+
+    .fc-daygrid-day {
+        background-color: #ecf0f1;
+    }
+
+    .fc-daygrid-day.fc-day-today {
+        background-color: #3498db;
+    }
+
+    .fc-event {
+        background-color: #3498db;
+        color: #fff;
+    }
+</style>
+
+<script>
+    // Load Approved Events into the Calendar
+    const approvedEvents = [
+        {% for event in approved_events %}
+            {
+                title: "{{ event.title }}",
+                start: "{{ event.event_date|date:'Y-m-d' }}",
+            },
+        {% endfor %}
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: approvedEvents,
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %}

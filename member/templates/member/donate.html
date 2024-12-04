@@ -1,0 +1,61 @@
+{% extends "member/base_member.html" %}
+
+{% block content %}
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>DONATE</h1>
+    </section>
+
+    <!-- Donation Form Section -->
+    <section class="donation-form">
+        <h2>Make a Donation</h2>
+        <form action="/submit_donation" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="transfer-method">How would you like to transfer?</label>
+                <select id="transfer-method" name="transfer-method" required>
+                    <option value="bank-transfer">Bank Transfer</option>
+                    <option value="online-payment">Online Payment</option>
+                    <option value="cheque">Cheque</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="receipt">Would you like a receipt?</label>
+                <input type="radio" id="yes" name="receipt" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="receipt" value="no">
+                <label for="no">No</label>
+            </div>
+
+            <div class="form-group">
+                <label for="donation-purpose">What is your donation for?</label>
+                <textarea id="donation-purpose" name="donation-purpose" rows="4" required></textarea>
+            </div>
+
+            <!-- Church Bank Details (Static text) -->
+            <div class="form-group">
+                <label for="bank-details">Church Bank Details</label>
+                <p id="bank-details">
+                    <strong>Bank Name:</strong> XYZ Bank<br>
+                    <strong>Account Name:</strong> Church Name<br>
+                    <strong>Account Number:</strong> 123456789<br>
+                    <strong>Sort Code:</strong> 00-00-00
+                </p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Submit Donation</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Verse Section -->
+    <section class="verse-section">
+        <h2>"Give, and it will be given to you. A good measure, pressed down, shaken together and running over, will be poured into your lap. For with the measure you use, it will be measured to you."</h2>
+        <p>Luke 6:38</p>
+    </section>
+
+    {% endblock %}
+

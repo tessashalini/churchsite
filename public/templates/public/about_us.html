@@ -1,0 +1,144 @@
+{% extends "public/base_public.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+    <!-- About Us Content Section -->
+    <section class="about-us">
+        <div class="about-left">
+            <div class="card">
+                <h3>Our Church</h3>
+                <p>The Malankara Mar Thoma Syrian Church, believed to have been founded by Saint Thomas,
+                    on of the Apostle of Jesus Christ, the saviour of the world and known by the name of the Apostle,
+                    is the part of the ONE HOLY CATHOLIC and APOSTOLIC CHURCH. This Church, in conformity with the faith 
+                    of the Christian Church in all ages, believes in Jesus Christ, God incarnate for the redemption of the mankind,
+                    and in the TRINUE God revealed by Him, who is himself in that trinity. <br> <br>
+                    The Holy Bible consisting of the sixty six books comprised in the Old and New Testaments, accepted by
+                    the Mar Thoma Syrian Church as the basis of all maters of doctrine and faith, and the Nicene Creed,
+                    in accordance with the Holy Scriptures. <br> <br>
+                    Come visit our worship services on Sunday mornings and take time to get acquinted with our church by learning
+                    and finding more about our ministries. <br> <br>
+                    We are happy that you're visiting us online today. Come alongside to inspire, equip and encourage to live out a 
+                    life that will bring glory to God.</p>
+            </div>
+        </div>
+        <div class="about-right">
+            <div class="card">
+                <h3>Our Values</h3>
+                <p>he Church affirms that the people of God are sent all over the world and that they partake in the salvation work of God, 
+                    to unite everything in Jesus Christ, through the ministry of reconcilation begun in Jesus Christ.</p>
+            </div>
+            <div class="card">
+                <h3>Our Mission</h3>
+                <p>The Church accpets as its mission to be the repository of the Divine doctrines revealed by Jesus Christ and proclaimed by His Apostles;
+                    to the maintain thee doctrines in their purity; to promote the spiritual life of its members through the administration
+                    of sacraments and by the ministry of the WORD; to make disciples of all nations by the proclaimation of the Gospel to all the world, 
+                    and through the administration of the Holy Baptism in the name of the Trinue God. </p>
+            </div>
+            <div class="card">
+                <h3>Our Passion</h3>
+                <p>Go therefore, make disciples of all the nations, baptizing them in the name of the Father, 
+                    and the Son, and all of the Holy Spirt, teaching them to observe everything that I have commanded you. (St. Matthew 28:19-20)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ministries Section
+    <section class="ministries">
+        <h2>Our Ministries</h2>
+        <div class="ministry-container">
+            <div class="ministry-card">
+                <img src="{% static 'images/sundayschool.png' %}" alt="Sunday School" class="ministry-img">
+                <h3>SUNDAY SCHOOL</h3>
+                <p>Our Sunday School helps children of different age groups to adopt the principles of God.</p>
+            </div>
+            <div class="ministry-card">
+                <h3>YUVAJANA SAKHYAM</h3>
+                <p>To enable the yourh of the Mar Thoma Parish Klang to accept Jesus Christ as their Lord, God and Saviour. 
+                    To help the youth of the church to grow in to the totality of Christ. </p>
+            </div>
+            <div class="ministry-card">
+                <h3>Choir</h3>
+                <p>Our Choir is vibrant group dedicated to singing for His glory actively engaging in the church's worship services.</p>
+            </div>
+            <div class="ministry-card">
+                <h3>SEVIKA SANGHAM</h3>
+                <p>Women's Ministry exists to lead women in a growing relationship with Jesus Christ. It provides a space for the women of our Parish 
+                    to nurture their spirituality and utilise their talents and resources for the glory of the Kingdom of God and serve the needy. </p>
+            </div>
+            <div class="ministry-card">
+                <h3>EDAVAKA MISSION</h3>
+                <p>"Every Mar Thomite is a voluntary evangelist" (a vision of His Grace of the Late Abraham Mar Thoma Metropolitian).
+                    The Edvaka Mission in our Parish is unit of the Mar Thoma Voluntary Evangelistic Association.</p>
+            </div>
+        </div>
+    </section> -->
+    
+    <section class="ministries">
+        <h2 class="ministries-title">Our Ministries</h2>
+        <div class="ministry-container">
+            <!-- First Column (2 cards) -->
+            <div class="ministry-column">
+                <div class="ministry-card">
+                    <div class="ministry-content">
+                        <div class="ministry-text">
+                            <h3>SUNDAY SCHOOL</h3>
+                            <p>Our Sunday School aims to help children of different age groups adopt the principles of God.</p>
+                        </div>
+                        <img src="{% static 'images/sundayschool.png' %}" alt="Sunday School" class="ministry-img">
+                    </div>
+                </div>
+                <div class="ministry-card">
+                    <div class="ministry-content">
+                        <div class="ministry-text">
+                            <h3>YUVAJANA SAKHYAM</h3>
+                            <p>To enable the youth of the Mar Thoma Parish Klang to accept Jesus Christ as their Lord, God, and Savior. To help the youth of the church grow into the totality of Christ.</p>
+                        </div>
+                        <img src="{% static 'images/youths.jpg' %}" alt="Yuvajana Sakhyam" class="ministry-img">
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Second Column (2 cards) -->
+            <div class="ministry-column">
+                <div class="ministry-card">
+                    <div class="ministry-content">
+                        <div class="ministry-text">
+                            <h3>Choir</h3>
+                            <p>Our Choir is a vibrant group dedicated to singing for His glory and actively engaging in the church's worship services.</p>
+                        </div>
+                        <img src="{% static 'images/choir.jpg' %}" alt="Choir" class="ministry-img">
+                    </div>
+                </div>
+                <div class="ministry-card">
+                    <div class="ministry-content">
+                        <div class="ministry-text">
+                            <h3>SEVIKA SANGHAM</h3>
+                            <p>The Women's Ministry leads women in a growing relationship with Jesus Christ, providing a space to nurture spirituality and utilize their talents for the Kingdom of God.</p>
+                        </div>
+                        <img src="{% static 'images/sevika.jpg' %}" alt="Sevika Sangham" class="ministry-img">
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Third Column (1 card) -->
+            <div class="ministry-column">
+                <div class="ministry-card">
+                    <div class="ministry-content">
+                        <div class="ministry-text">
+                            <h3>EDAVAKA MISSION</h3>
+                            <p>The Edavaka Mission in our Parish is a unit of the Mar Thoma Voluntary Evangelistic Association. Its vision is to inspire every Mar Thomite to be a voluntary evangelist.</p>
+                        </div>
+                        <img src="{% static 'images/edvaka.jpg' %}" alt="Edavaka Mission" class="ministry-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+    {% endblock %}
