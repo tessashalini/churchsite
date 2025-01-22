@@ -1,0 +1,17 @@
+<!-- registration/login.html -->
+{% extends "public/base_public.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Login</h2>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="auth-button">Login</button>
+    </form>
+    <div class="auth-links">
+        <a href="{% url 'password_reset' %}">Forgot Password?</a>
+        <a href="{% url 'signup' %}">New User?</a>
+    </div>
+</div>
+{% endblock %}

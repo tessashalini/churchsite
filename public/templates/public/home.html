@@ -1,69 +1,112 @@
-{% extends "public/base_public.html" %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Home</title>
+    <link rel="stylesheet" href="{% static 'styles/base_public.css' %}">
+</head>
+<body style="background-color: #002B5B; color: white;">
 
-{% block content %}
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Welcome to Our Church</h1>
+<!-- Navbar -->
+<header class="navbar">
+    <div class="navbar-container">
+        <div class="logo">
+            <img src="{% static 'images/churchlogo.png' %}" alt="Church Logo">
         </div>
-    </section>
+        <nav>
+            <ul>
+                <li><a href=" ">Home</a></li>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+        </nav>
+    </div>
+</header>
 
-    <!-- Our Church Family Section -->
-    <section class="church-family">
-        <div class="left-card">
-            <div class="card">
-                <h3>Service Times</h3>
-                <p>Sundays at 9:00 AM & 11:00 AM</p>
-            </div>
+<!-- Video Section -->
+<section class="video-section">
+    <video autoplay loop muted>
+        <source src="{% static 'images/church_video.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay">
+        <h1>Welcome to Mar Thoma Church, Klang</h1>
+    </div>
+</section>
+
+<!-- Info and Service Times Section -->
+<section class="info-service">
+    <div class="info-card">
+        <h3>ABOUT US</h3>
+        <p>The Malankara Mar Thoma Syrian Church, believed to have been founded by Saint Thomas,
+            on of the Apostle of Jesus Christ, <br>the saviour of the world and known by the name of the Apostle,
+            is the part of the one holy catholic and apostolic church.</p>
+        <p>Learn more about our church and community.</p>
+        <a href="{% url 'about_us' %}" class="btn">Read More</a>
+    </div>
+    <div class="service-card">
+        <h3>SERVICE TIMES</h3>
+        <p>Sundays at 9.30am</p>
+        <p>1st and 3rd Sunday - Holy Communion (English/Malayalam)</p>
+        <p>2nd and 4th Sunday - Divine Service</p>
+        <p>Sunday School at 8.30am</p>
+        <p>Youth Bible Study at 8.30am</p>
+    </div>
+</section>
+
+<!-- Image Gallery Section -->
+<section class="image-gallery">
+    <h2>Our Community</h2>
+    <div class="gallery-grid">
+        <div class="gallery-item">
+            <img src="{% static 'images/img1.jpg' %}" alt="Community Image 1">
         </div>
-        <div class="right-info">
-            <h2>Our Church Family</h2>
-            <p>We are a community of believers coming together to worship and support each other in faith.</p>
-            <a href="{% url 'about_us' %}" class="btn">Read More About Us</a>
+        <div class="gallery-item">
+            <img src="{% static 'images/img2.jpg' %}" alt="Community Image 2">
         </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery">
-        <div class="slider">
-            <div class="slide active">
-                <img src="{% static 'images/img1.jpg' %}" alt="Gallery Image 1">
-            </div>
-            <div class="slide">
-                <img src="{% static 'images/img2.jpg' %}" alt="Gallery Image 2">
-            </div>
-            <div class="slide">
-                <img src="{% static 'images/img3.jpg' %}" alt="Gallery Image 3">
-            </div>
-            <div class="slide">
-                <img src="{% static 'images/img4.jpg' %}" alt="Gallery Image 4">
-            </div>
+        <div class="gallery-item">
+            <img src="{% static 'images/img3.jpg' %}" alt="Community Image 3">
         </div>
-    </section>
-
-    <!-- Upcoming Events Section -->
-    <section class="upcoming-events">
-        <h2>Upcoming Events</h2>
-        <div class="event">
-            <div class="date">
-                <span>15</span><span>Dec</span>
-            </div>
-            <div class="event-info">
-                <h3>Christmas Choir Practice</h3>
-                <p>Friday</p>
-                <p>8pm</p>
-            </div>
+        <div class="gallery-item">
+            <img src="{% static 'images/img4.jpg' %}" alt="Community Image 4">
         </div>
-        <!-- Add more events as needed -->
-    </section>
+        <div class="gallery-item">
+            <img src="{% static 'images/img6.jpg' %}" alt="Community Image 6">
+        </div>
+        <div class="gallery-item">
+            <img src="{% static 'images/img7.jpg' %}" alt="Community Image 7">
+        </div>
+    </div>
+</section>
 
-    <!-- Quote of the Day Section -->
-    <section class="quote">
-        <h2>Quote of the Day</h2>
-        <blockquote>"I can do all things through Christ who strengthens me." - Philippians 4:13</blockquote>
-    </section>
+<!-- Quote of the Day Section -->
+<section class="quote">
+    <h2>Quote of the Day</h2>
+    <blockquote >"I can do all things through Christ who strengthens me. - Philippians 4:13"</blockquote>
+</section>
 
-   
-    <script src="{% static 'js/scripts.js' %}"></script>
-    {% endblock %}
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>Location</h3>
+            <p>Lebuh Pulau Pinang 2, <br> Kawasan 19 Bandar Baru Klang,<br> 41400 Klang, Selangor</p>
+        </div>
+        <div class="footer-column">
+            <h3>Social Media</h3>
+            <ul>
+                <li><a href="https://www.youtube.com/c/MarThomaSyrianChurchKlang">YouTube</a></li>
+                <li><a href="https://www.instagram.com/mtyfklang/?hl=en">Instagram</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <p>&copy; 2024 Klang, Mar Thoma Church. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

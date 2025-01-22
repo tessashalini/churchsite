@@ -1,15 +1,14 @@
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
+document.addEventListener('DOMContentLoaded', function() {
+    const quotes = [
+        "I can do all things through Christ who strengthens me. - Philippians 4:13",
+        "For I know the plans I have for you, declares the Lord. - Jeremiah 29:11",
+        "The Lord is my shepherd; I shall not want. - Psalm 23:1",
+    ];
 
-function showSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.style.transform = `translateX(${100 * (i - index)}%)`;
-    });
-}
+    const quoteElement = document.getElementById('daily-quote');
+    const today = new Date().getDate();
+    quoteElement.textContent = quotes[today % quotes.length];
+});
 
-function autoSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-}
-
-setInterval(autoSlide, 3000);  // Auto slide every 3 seconds
+console.log(quoteElement); // Check if the element is correctly selected
+console.log(quotes[today % quotes.length]); // Check the quote being set

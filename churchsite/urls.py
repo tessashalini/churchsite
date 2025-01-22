@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
+from accounts.views import sign_up
+from django.contrib.auth import views as auth_views
 
 
 
@@ -26,11 +28,15 @@ urlpatterns = [
     path('', include('public.urls')),  # Public layer
     path('member/', include('member.urls')),  # Member Layer
     path('adminlayer/', include('admin_layer.urls')), #Admin Layer
+    path('sign_up/', sign_up, name='sign_up'), #signup
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    
+    
+
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
 
 
 

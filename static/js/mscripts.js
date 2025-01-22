@@ -1,22 +1,25 @@
-$(document).ready(function() {
-    $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        editable: false,
-        events: '/path-to-fetch-events/'  // Replace with your actual path
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/booked-events/')
+        .then(response => response.json())
+        .then(data => {
+            const bookedDates = data.map(event => event.date);
+            const bookedTimes = data.map(event => event.time);
+
+            const dateInput = document.getElementById('date');
+            const timeInput = document.getElementById('time');
+
+            dateInput.addEventListener('change', function() {
+                if (bookedDates.includes(this.value)) {
+                    alert('This date is already booked.');
+                    this.value = '';
+                }
+            });
+
+            timeInput.addEventListener('change', function() {
+                if (bookedTimes.includes(this.value)) {
+                    alert('This time is already booked.');
+                    this.value = '';
+                }
+            });
+        });
 });
-
-function showForm() {
-    document.querySelectorAll('.event-form').forEach(form => {
-        form.style.display = 'none';
-    });
-    const selectedEvent = document.getElementById('event-type').value;
-    if (selectedEvent) {
-        document.getElementById(selectedEvent + '-form').style.display = 'block';
-    }
-}
-

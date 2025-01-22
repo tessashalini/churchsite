@@ -3,55 +3,95 @@
 
 {% block content %}
 
-    <!-- Contact Us Content Section -->
-    <section class="contact-us">
-        <!-- Map Section -->
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127492.40632267148!2d101.31829977035525!3d3.0578106340726383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc53699afef9fb%3A0x5082dd97a6a033fe!2sSt.Thomas%20Mar%20Thoma%20Church%20Klang!5e0!3m2!1sen!2smy!4v1731500512464!5m2!1sen!2smy" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127492.40632267148!2d101.31829977035525!3d3.0578106340726383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc53699afef9fb%3A0x5082dd97a6a033fe!2sSt.Thomas%20Mar%20Thoma%20Church%20Klang!5e0!3m2!1sen!2smy!4v1731500512464!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-        </div>
+<!-- Contact Us Content Section -->
+<section class="contact-us">
+    <!-- Map Section -->
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.137651660344!2d101.4475070749708!3d3.0578229969179604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc53699afef9fb%3A0x5082dd97a6a033fe!2sSt.Thomas%20Mar%20Thoma%20Church%20Klang!5e0!3m2!1sen!2smy!4v1735832653037!5m2!1sen!2smy" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+   
 
 <!-- Contact Form Section -->
 <section class="contact-form-section">
     <h2>Contact Us</h2>
-    <form class="contact-form" action="/submit_form" method="POST">
-        <!-- Full Name Field -->
-        <label for="full_name">Full Name</label>
-        <input type="text" id="full_name" name="full_name" required>
-
-        <!-- Phone Number Field -->
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" required>
-
-        <!-- Email Address Field -->
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required>
-
-        <!-- Subject Field -->
-        <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject" required>
-
-        <!-- Question Field -->
-        <label for="question">Your Question</label>
-        <textarea id="question" name="question" rows="5" required></textarea>
-
-        <!-- Submit Button -->
-        <input type="submit" value="Submit">
+    <form class="contact-form" action="{% url 'contact_us' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" class="submit-button">
     </form>
 </section>
 
-        <!-- Address Section with Map Links -->
-        <div class="address-section">
-            <h3>Our Address</h3>
-            <p>Lebuh Pulau Pinang 2, <br> Kawasan 19 Bandar Baru Klang,<br> 41400 Klang, Selangor</p>
-            <div class="map-links">
-                <a href="https://waze.com/ul?q=123+Church+St%2C+City%2C+Country" target="_blank">Get Directions (Waze)</a>
-                <a href="https://maps.app.goo.gl/x7hs88AWipjtgcks7" target="_blank">Get Directions (Google Maps)</a>
-            </div>
-        </div>
-    </section>
 
-    
-    <script src="{% static 'js/scripts.js' %}"></script>
+<!-- Address Section with Map Links -->
+<div class="address-section">
+    <h3>Our Address</h3>
+    <p>Lebuh Pulau Pinang 2, <br> Kawasan 19 Bandar Baru Klang,<br> 41400 Klang, Selangor</p>
+    <div class="map-links">
+        <a href="https://waze.com/ul?q=123+Church+St%2C+City%2C+Country" target="_blank">Get Directions (Waze)</a>
+        <a href="https://maps.app.goo.gl/x7hs88AWipjtgcks7" target="_blank">Get Directions (Google Maps)</a>
+    </div>
+</div>
+</section>
 
-    {% endblock %}
+<!-- Custom Styles for the Form Container -->
+<style>
+    .contact-form-section {
+        background-color: #fff;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        max-width: 1200px; 
+        margin: 0 auto;
+        margin-bottom: 3rem; 
+    }
+
+    .contact-form-section h2 {
+        text-align: center;
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .contact-form label {
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 12px;
+        margin-bottom: 1.5rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .contact-form input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 12px;
+        text-align: center;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .contact-form input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+</style>
+
+<script src="{% static 'js/scripts.js' %}"></script>
+
+{% endblock %}

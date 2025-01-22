@@ -1,70 +1,57 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Admin Panel{% endblock %}</title>
+    <title>Church Home</title>
     <link rel="stylesheet" href="{% static 'styles/base_public.css' %}">
 </head>
 <body style="background-color: #002B5B; color: white;">
 
-    <!-- Navbar -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <div class="logo">
-                <img src="{% static 'images/churchlogo.png' %}" alt="Church Logo">
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="{% url 'about_us' %}">About Us</a></li>
-                    <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
-                </ul>
-            </nav>
+<!-- Navbar -->
+<header class="navbar">
+    <div class="navbar-container">
+        <div class="logo">
+            <img src="{% static 'images/churchlogo.png' %}" alt="Church Logo">
         </div>
-    </header>
+        <nav>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <!-- Main Content -->
-    <main>
-        {% block content %}
-        <!-- Content for each page will be injected here -->
-        {% endblock %}
-    </main>
+<main>
+    {% block content %}
+    <!-- Content for each page will be injected here -->
+    {% endblock %}
+</main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <!-- Upcoming Events -->
-            <div class="footer-column">
-                <h3>Upcoming Events</h3>
-                <ul>
-                    <li>Event 1 - Date</li>
-                    <li>Event 2 - Date</li>
-                    <li>Event 3 - Date</li>
-                </ul>
-            </div>
-
-            <!-- Location -->
-            <div class="footer-column">
-                <h3>Location</h3>
-                <p>Lebuh Pulau Pinang 2, <br> Kawasan 19 Bandar Baru Klang,<br> 41400 Klang, Selangor</p>
-            </div>
-
-            <!-- Social Media -->
-            <div class="footer-column">
-                <h3>Social Media</h3>
-                <ul>
-                    <li><a href="https://www.youtube.com/c/MarThomaSyrianChurchKlang">YouTube</a></li>
-                    <li><a href="https://www.instagram.com/mtyfklang/?hl=en">Instagram</a></li>
-                </ul>
-            </div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>Location</h3>
+            <p>Lebuh Pulau Pinang 2, <br> Kawasan 19 Bandar Baru Klang,<br> 41400 Klang, Selangor</p>
         </div>
-        <div class="footer-copyright">
-            <p>&copy; 2024 Klang,Mar Thoma Church. All Rights Reserved.</p>
+        <div class="footer-column">
+            <h3>Social Media</h3>
+            <ul>
+                <li><a href="https://www.youtube.com/c/MarThomaSyrianChurchKlang">YouTube</a></li>
+                <li><a href="https://www.instagram.com/mtyfklang/?hl=en">Instagram</a></li>
+            </ul>
         </div>
-    </footer>
+    </div>
+    <div class="footer-copyright">
+        <p>&copy; 2024 Klang, Mar Thoma Church. All Rights Reserved.</p>
+    </div>
+</footer>
 
+<script src="{% static 'js/scripts.js' %}"></script>
 </body>
 </html>

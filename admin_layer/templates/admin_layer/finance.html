@@ -1,5 +1,179 @@
 {% extends "admin_layer/base_admin.html" %}
 
 {% block content %}
-    <h1>Finance Page</h1>
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: white;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        color: #343a40;
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .finances {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        color: #555;
+    }
+
+    li:last-child {
+        border-bottom: none;
+    }
+
+    .verified {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    /* Chart Styles */
+    .chart-container {
+        position: relative;
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 1500px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<h1>Finance Page</h1>
+<div class="finances">
+    <h2>Donations</h2>
+    <ul>
+        {% for donation in donations %}
+        <li>
+            Received donation at the amount of RM{{ donation.amount }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Expenses</h2>
+    <ul>
+        {% for expense in expenses %}
+        <li>{{ expense.category }} - ${{ expense.amount }} on {{ expense.date }}</li>
+        {% endfor %}
+    </ul>
+    <!-- Dummy Expense Data -->
+    <ul>
+        <li>Rent - RM500 on 2023-10-01</li>
+        <li>Utilities - RM200 on 2023-10-02</li>
+        <li>Salaries - RM1500 on 2023-10-03</li>
+        <li>Office Supplies - RM300 on 2023-10-04</li>
+        <li>Travel - RM400 on 2023-10-05</li>
+        <li>Marketing - RM600 on 2023-10-06</li>
+        <li>Insurance - RM250 on 2023-10-07</li>
+        <li>Maintenance - RM350 on 2023-10-08</li>
+        <li>Miscellaneous - RM150 on 2023-10-09</li>
+        
+    </ul>
+
+    <h2>Financial Overview</h2>
+    <div class="chart-container">
+        <canvas id="financeChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="expenseChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('financeChart').getContext('2d');
+    const financeChart = new Chart(ctx, {
+        type: 'bar', // or 'line', 'pie', etc.
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Donations',
+                data: [1200, 1900, 3000, 5000, 2300, 3200, 4000],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+    const expenseChart = new Chart(expenseCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Rent', 'Utilities', 'Salaries', 'Office Supplies', 'Travel', 'Marketing', 'Insurance', 'Maintenance', 'Miscellaneous'],
+            datasets: [{
+                label: 'Expenses',
+                data: [500, 200, 1500, 300, 400, 600, 250, 350, 150],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(199, 199, 199, 0.2)',
+                    'rgba(83, 102, 255, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(199, 199, 199, 1)',
+                    'rgba(83, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
 {% endblock %}

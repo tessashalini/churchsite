@@ -1,0 +1,190 @@
+{% extends "member/base_member.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        color: white;
+        text-align: center;
+    }
+    h3 {
+        color: black;
+        text-align: center;
+    }
+
+    .form-container {
+        background-color: #fff;
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+    }
+
+    .form-container label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .form-container input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .form-container #formFeedback {
+        margin-top: 10px;
+        color: #007bff;
+    }
+
+    .media-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px auto;
+        max-width: 800px;
+    }
+
+    .media-links h3 {
+        margin-bottom: 10px;
+    }
+
+    .media-image {
+        width: 150px;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .media-image:hover {
+        transform: scale(1.05);
+    }
+
+    .community-messages {
+        background-color: #fff;
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+    }
+
+    .community-messages h3 {
+        margin-bottom: 10px;
+    }
+
+    .community-messages ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .community-messages li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        color: black; /* Set font color to black */
+    }
+</style>
+<h2>Community</h2>
+
+<!-- Real-Time Updating Form -->
+<div class="form-container">
+    <h3>Today's Thought: "How can we show love to our neighbors today?"</h3>
+    <form id="realTimeForm">
+        <label for="usernameField">Your Name:</label>
+        <input type="text" id="usernameField" name="usernameField" placeholder="Enter your name" required>
+        
+        <label for="inputField">Share your thoughts:</label>
+        <input type="text" id="inputField" name="inputField" placeholder="Enter your message" required>
+        
+        <button type="submit">Submit</button>
+    </form>
+    <div id="formFeedback"></div>
+</div>
+
+<!-- Community Messages -->
+<div class="community-messages">
+    <h3>Community Messages</h3>
+    <ul id="messagesList">
+        {% for message in messages %}
+            <li>{{ message.username }}: {{ message.message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Spotify and YouTube Links -->
+<div id="mediaLinks">
+    <h2>Spotify Podcast</h2>
+    <a href="https://open.spotify.com/show/6rgQVMOTIbGoL5llQWkQ6W?si=2fbea193daaa48fe" target="_blank">
+        <img src="{% static 'images/callherholy.jpg' %}" alt="Call Her Holy">
+    </a>
+    <a href="https://open.spotify.com/show/5hTcX94ndrBcGAXqN15uXc?si=235250c693b34ea6" target="_blank">
+        <img src="{% static 'images/becoming.jpg' %}" alt="Becoming Something with Jonathan Pokluda">
+    </a>
+    <a href="https://open.spotify.com/show/56l7k6dhUhhUIziFcQzAs1?si=bc7fb421ba8749c9" target="_blank">
+        <img src="{% static 'images/mornings.jpg' %}" alt="Mornings with the Masters">
+    </a>
+
+    <h2>YouTube Channel</h2>
+    <a href="https://www.youtube.com/watch?v=B26gh-thRCU" target="_blank">
+        <img src="{% static 'images/youtube.jpg' %}" alt="God will Work It Out">
+    </a>
+    <a href="https://www.youtube.com/watch?v=O1i1OpYS90k" target="_blank">
+        <img src="{% static 'images/youtube2.jpg' %}" alt="Renewal of Mind">
+    </a>
+</div>
+
+<script>
+document.getElementById('realTimeForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting the traditional way
+    const usernameField = document.getElementById('usernameField');
+    const inputField = document.getElementById('inputField');
+    const username = usernameField.value.trim();
+    const message = inputField.value.trim();
+
+    if (username && message) {
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('message', message);
+
+        fetch("{% url 'community' %}", {  // Ensure this matches the URL pattern name
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const messagesList = document.getElementById('messagesList');
+                const newMessage = document.createElement('li');
+                newMessage.textContent = `${username}: ${message}`;
+                messagesList.appendChild(newMessage);
+
+                usernameField.value = '';
+                inputField.value = '';
+                document.getElementById('formFeedback').innerText = 'Message submitted!';
+            } else {
+                document.getElementById('formFeedback').innerText = 'Error submitting message.';
+            }
+        });
+    } else {
+        document.getElementById('formFeedback').innerText = 'Please enter both your name and a message.';
+    }
+});
+
+</script>
+
+{% endblock %}

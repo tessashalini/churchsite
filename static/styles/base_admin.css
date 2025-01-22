@@ -117,3 +117,15 @@ canvas {
     max-width: 100%;
     height: auto;
 }
+.quote {
+    background-color: #34495e;
+    padding: 40px;
+    text-align: center;
+    color: white; /* Ensure this color contrasts with the background */
+}
+
+.quote blockquote {
+    font-size: 24px;
+    font-style: italic;
+    line-height: 1.5;
+}

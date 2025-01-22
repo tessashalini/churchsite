@@ -27,6 +27,8 @@ SECRET_KEY = 'django-insecure-@-$#!sth$)mtxvmuzvtr5@f(=@lz*bu9c6g5cui-b(_hzj@*v5
 DEBUG = True
 
 ALLOWED_HOSTS = []
+LOGIN_REDIRECT_URL = '/member/'
+
 
 
 # Application definition
@@ -42,7 +44,7 @@ INSTALLED_APPS = [
     'public.apps.PublicConfig',
     'member.apps.MemberConfig',
     'admin_layer.apps.AdminLayerConfig',
-    'events.apps.EventsConfig',
+    'accounts.apps.AccountsConfig',
     
 ]
 
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.RoleBasedAccessMiddleware',
 ]
 
 ROOT_URLCONF = 'churchsite.urls'
@@ -84,8 +87,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,
+           }
+        
+        }
     }
-}
+
 
 
 # Password validation
@@ -143,3 +151,40 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'tessashalini@gmail.com'  # Change to your email
 EMAIL_HOST_PASSWORD = 'miql foxx vhfm xhyy'  # Change to your email password
 DEFAULT_FROM_EMAIL = 'admin@church.com'
+
+
+import logging
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s %(levelname)s %(message)s',
+    handlers=[logging.StreamHandler()]
+)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
+from django.core.management.base import BaseCommand
+from django.db import connection
+
+class Command(BaseCommand):
+    help = 'Custom command description'
+
+    def handle(self, *args, **kwargs):
+        # Perform database operations
+        # ...
+
+        # Close the connection
+        connection.close()

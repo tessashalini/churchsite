@@ -1,53 +1,138 @@
 {% extends "member/base_member.html" %}
 
 {% block content %}
+<style>
+    /* Main form container */
+.donation-form {
+    width: 100%;
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
 
-    <!-- Hero Section -->
+/* Form title */
+.donation-form h2 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+/* Form field groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Label styling */
+.form-group label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #444;
+    font-weight: 500;
+}
+
+/* Input and select fields */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+/* Focused state for input fields */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Radio button styling */
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Submit button styling */
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Button hover effect */
+button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Add some space between form sections */
+.donation-form .form-group {
+    margin-bottom: 25px;
+}
+
+/* Styling for the Church Bank Details section */
+#bank-details {
+    font-size: 1rem;
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+/* Verse section styling */
+.verse-section {
+    margin-top: 40px;
+    text-align: center;
+    font-style: italic;
+    color: #333;
+}
+
+.verse-section h2 {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.verse-section p {
+    font-size: 1.1rem;
+    color: #666;
+}
+</style>
+<!-- 
+     Hero Section 
     <section class="hero-section">
-        <h1>DONATE</h1>
-    </section>
+
+    </section> -->
 
     <!-- Donation Form Section -->
     <section class="donation-form">
         <h2>Make a Donation</h2>
-        <form action="/submit_donation" method="POST">
+        <form action="/member/donate/" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="transfer-method">How would you like to transfer?</label>
-                <select id="transfer-method" name="transfer-method" required>
-                    <option value="bank-transfer">Bank Transfer</option>
-                    <option value="online-payment">Online Payment</option>
-                    <option value="cheque">Cheque</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="receipt">Would you like a receipt?</label>
-                <input type="radio" id="yes" name="receipt" value="yes">
-                <label for="yes">Yes</label>
-                <input type="radio" id="no" name="receipt" value="no">
-                <label for="no">No</label>
-            </div>
-
-            <div class="form-group">
-                <label for="donation-purpose">What is your donation for?</label>
-                <textarea id="donation-purpose" name="donation-purpose" rows="4" required></textarea>
-            </div>
-
-            <!-- Church Bank Details (Static text) -->
-            <div class="form-group">
-                <label for="bank-details">Church Bank Details</label>
-                <p id="bank-details">
-                    <strong>Bank Name:</strong> XYZ Bank<br>
-                    <strong>Account Name:</strong> Church Name<br>
-                    <strong>Account Number:</strong> 123456789<br>
-                    <strong>Sort Code:</strong> 00-00-00
-                </p>
-            </div>
-
-            <div class="form-group">
-                <button type="submit">Submit Donation</button>
-            </div>
+            {{ form.as_p }}  <!-- This will render the form fields -->
+            <button type="submit">Submit Donation</button>
         </form>
     </section>
 
@@ -57,5 +142,4 @@
         <p>Luke 6:38</p>
     </section>
 
-    {% endblock %}
-
+{% endblock %}

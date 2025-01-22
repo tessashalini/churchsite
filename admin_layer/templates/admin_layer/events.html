@@ -1,86 +1,158 @@
 {% extends "admin_layer/base_admin.html" %}
 
 {% block content %}
-<h1>Manage Events</h1>
-
-<!-- Event Requests for Approval Section -->
-<section>
-    <h2>Pending Event Requests</h2>
-    <ul>
-        {% for event in event_requests %}
-            <li>
-                <strong>{{ event.title }}</strong> (Requested by {{ event.member.username }}) - {{ event.event_date }}
-                <p>{{ event.description }}</p>
-                <form method="post" action="{% url 'admin_event_action' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="event_id" value="{{ event.id }}">
-                    <button type="submit" name="action" value="approve">✅ Approve</button>
-                    <button type="submit" name="action" value="reject">❌ Reject</button>
-                </form>
-            </li>
-        {% empty %}
-            <p>No pending requests.</p>
-        {% endfor %}
-    </ul>
-</section>
-
-<!-- Calendar Section (Display all approved events) -->
-<section>
-    <h2>Upcoming Approved Events</h2>
-    <div id="calendar" class="calendar-container"></div>
-</section>
-
-<!-- Include JS and CSS for FullCalendar -->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
-
-<!-- Custom Styling -->
 <style>
+table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background: #007bff;
+        color: white;
+    }
+    /* tr:nth-child(even) {
+        background-color: #f2f2f2;
+    } */
+    tr:hover {
+        background-color: lightblue;
+    }
+    button {
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .approve {
+        background: #28a745;
+        color: white;
+    }
+    .approve:hover {
+        background: #218838;
+    }
+    .reject {
+        background: #dc3545;
+        color: white;
+    }
+    .reject:hover {
+        background: #c82333;
+    }
     .calendar-container {
-        width: 80%;
-        margin: 0 auto;
-        background-color: #f0f8ff;
-        border-radius: 10px;
+        background: whitesmoke;
+        color: black;
         padding: 20px;
+        border-radius: 10px;
+        max-width: 1500px;
+        margin: 0 auto;
     }
-
     .fc-toolbar {
-        background-color: #2c3e50;
-        color: #ecf0f1;
+        background-color: #e0e0e0;
+        color: #333;
+        padding: 10px;
+        border-radius: 5px;
     }
-
     .fc-daygrid-day {
-        background-color: #ecf0f1;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
     }
-
-    .fc-daygrid-day.fc-day-today {
-        background-color: #3498db;
-    }
-
-    .fc-event {
-        background-color: #3498db;
+    .fc-daygrid-event {
+        background-color: yellow;
         color: #fff;
+        border-radius: 3px;
+        padding: 5px;
+    }
+    .fc-daygrid-event:hover {
+        background-color: #0056b3;
     }
 </style>
 
-<script>
-    // Load Approved Events into the Calendar
-    const approvedEvents = [
-        {% for event in approved_events %}
-            {
-                title: "{{ event.title }}",
-                start: "{{ event.event_date|date:'Y-m-d' }}",
-            },
-        {% endfor %}
-    ];
+</style>
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            events: approvedEvents,
+<h2>Manage Events</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Requested By</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in pending_requests %}
+        <tr>
+            <td>{{ event.title }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.requested_by.username }}</td>
+            <td>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="event_id" value="{{ event.id }}">
+                    <button type="submit" name="action" value="Approve" class="approve">Approve</button>
+                    <button type="submit" name="action" value="Reject" class="reject">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Approved Events</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Requested By</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in approved_events %}
+        <tr>
+            <td>{{ event.title }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.date }}</td>
+            <td>{{ event.requested_by.username }}</td>
+            <td>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="event_id" value="{{ event.id }}">
+                    <button type="submit" name="action" value="Delete" class="reject">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Upcoming Events Calendar</h3>
+<div id="calendar" class="calendar-container"></div>
+
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right:'today'
+            },
+            events: '/member/api/booked-events/',
+            eventColor: '#378006',
+            eventTextColor: '#ffffff'
         });
-        calendar.render();
     });
 </script>
 {% endblock %}

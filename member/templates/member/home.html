@@ -1,17 +1,29 @@
 {% extends "member/base_member.html" %}
-
+{% load static %}
 {% block content %}
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <h1>Church Name</h1>
-    </section>
+<section class="hero-section">
+    <!-- <img src="{% static 'images/about_us_hero.jpg' %}" alt="Hero Image" class="hero-img"> -->
+    <div class="hero-text">
+        <h1>Welcome!</h1>
+    </div>
+</section>
 
-    <!-- Vicar's Message -->
-    <section class="vicar-message">
-        <h2>Vicar's Message</h2>
-        <p>Your Vicar's message here.</p>
-    </section>
+<!-- Vicar's Message -->
+<section class="vicar-message">
+    <h2>Vicar's Message</h2>
+    <div class="vicar-message-content">
+        <p>Dearly beloved in Christ,</p>
+        <p>Easter greetings to all of you. As we move through the Lenten season, our hope is the fulfilment of God’s plan as we see in the resurrection of Christ. The passion season should be more than a ritual or a reminder, but lead us to an experience of the love of God which was extended to all humanity for its redemption from sin and eternal death.</p>
+        <p>Yes, I do agree it’s not an easy task to understand and accept the reality of our sin, redemption, and new life in Christ. We always tend to have questions which continue to challenge our faith. “It is not the task of Christianity to provide easy answers to all our questions, but to make us progressively aware of a mystery. God is not so much the object of our knowledge as the cause of our wonder” – Kallistos Ware. It's my prayer and hope that each day we will grow one more step closer to this mystery and be sure that we will be found in him at the end of ages.</p>
+        <p>As a family, we have been enriched with your love and fellowship as we joined your faith journey here in Thane 3 years ago. We remember with gratitude your prayers and support for the various needs of the parish and how God enabled us to achieve and fulfill the purpose He had for us. As I look back, every organization in the parish had some unique experience of growing in faith during the last 3 years.</p>
+        <p>Let us praise and thank God that he has helped us to complete the parsonage and the church renovation project in the best possible way. I believe that when God worked, the end result was much beyond all our expectations and dreams.</p>
+        <p>The wonderful friendships that we have made in the last three years is a treasure for eternity, and my prayer is that we will remember each other in our prayers and keep in touch with a hope to meet again. We will surely miss this wonderful fellowship, but we are grateful that God gave us the opportunity to serve all of you.</p>
+        <p>May the good Lord bless you and keep you all blessed in the years to come. May your generations to come grow this faith and be blessed. We hope to meet you all again at some point in our life, and even if we don’t, let us hope and pray to meet again on the eternal shores in his presence.</p>
+        <p>May we grow closer to our loving Lord in this new year.</p>
+        <p>God bless</p>
+    </div>
+</section>
 
     <!-- Lectionary and Service Times -->
     <section class="lectionary-section">
@@ -133,8 +145,8 @@
         <h2>Announcements</h2>
         <p>Carolling 2024 – MTYF
             Christmas Carolling will be held over three days: Friday 13th , Saturday 14th , and
-            Sunday 15th December. The MTYF team coordinating the carolling will reach out to
-            members directly to confirm availability. A van will be organized for transport. Please
+            Sunday 15th December. <br> The MTYF team coordinating the carolling will reach out to
+            members directly to confirm availability. <br> A van will be organized for transport. Please
             confirm if the dates and times are suitable for your visit.</p>
     </section>
 

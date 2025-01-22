@@ -1,5 +1,178 @@
 {% extends "admin_layer/base_admin.html" %}
 
 {% block content %}
-    <h1>Documents Page</h1>
+    <!-- <h1>Documents Page</h1> -->
+    
+    <!-- Inline CSS for improved styling -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        h1, h2 {
+            color: #343a40;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        /* Label Styles */
+        .form-container label {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-container input[type="file"], .form-container input[type="text"], .form-container input[type="submit"], button {
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .form-container input[type="file"]:focus, .form-container input[type="text"]:focus, .form-container input[type="submit"]:focus, button:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 14px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Document List Section */
+        .document-list {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+        }
+
+        .document-list h2 {
+            font-size: 26px;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .document-list table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .document-list th, .document-list td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .document-list th {
+            background-color: #f4f4f4;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .document-list td {
+            background-color: #fff;
+            color: #333; /* Ensure the text color is visible */
+        }
+
+        .document-list tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .document-list a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .document-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+<div class="form-container">
+    <h2>Upload a New Document</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload Document</button>
+    </form>
+</div>
+
+    
+    <div class="document-list">
+        <h2>Existing Documents</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Uploaded At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for document in documents %}
+                <tr>
+                    <td>{{ document.title }}</td>
+                    <td>{{ document.category }}</td>
+                    <td>{{ document.uploaded_at }}</td>
+                    <td>
+                        <a href="{{ document.file.url }}" download>Download</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
